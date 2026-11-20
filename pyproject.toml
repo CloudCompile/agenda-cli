@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agenda-cli"
+version = "0.1.0"
+description = "One view across Skyward, Classroom and MyStudyLife"
+readme = "README.md"
+requires-python = ">=3.10"
+# agenda imports the three sibling CLIs in-process, so their runtime deps
+# have to be present here too.
+dependencies = [
+    "typer>=0.9",
+    "rich>=13",
+    "requests>=2.28",
+    "websocket-client>=1.6",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+agenda = "agenda.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["agenda"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
